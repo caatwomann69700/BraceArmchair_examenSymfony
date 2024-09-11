@@ -1,0 +1,77 @@
+
+{% extends 'base.html.twig' %}
+{% set route = app.request.attributes.get('_route') %}
+
+
+{% block header %}
+{# Navbar : Start #}
+  <div class="header-container">
+    <!-- Ajout de la classe fixed-top pour rendre la navbar fixe en haut de la page -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-background fixed-top">
+        <div class="container">
+            <!-- <img src="Images/454715.png" alt="Logo" class="mr-2" style="width: 60px;"> -->
+            
+            <a class="navbar-brand style="font-family: 'Nanum Myeongjo';" href="{{ path('app_home') }}"> BRACE ARMCHAIR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if route == 'home' %}active{% endif %}" href="{{ path('app_home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if route == 'products' %}active{% endif %}" href="{{ path('app_products') }}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if route == 'About' %}active{% endif %}" href="{{ path('app_about') }}">About</a>
+                    </li>
+                    {#<li class="nav-item">
+                        <a class="nav-link {% if route == 'About' %}active{% endif %}" href="{{ path('app_newsletter') }}">Newsletter</a>
+                    </li> #}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+{# Navbar : End #}
+ <!-- Affichage conditionnel du carrousel -->
+        {% if route == 'app_home' %}
+            {# Carrousel : Start #}
+            <div class="carousel">
+                <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active c-item">
+                            <img src="Images/783908165327755(1).6405e0f1ae940.gif" class="d-block w-100 c-img" alt="Image 1">
+                        </div> 
+                        <div class="carousel-item c-item">
+                            <img src="Images/ef2100202043091(1).6688ff93b81b9.jpg" class="d-block w-100 c-img" alt="Image 2">
+                        </div>
+                        <div class="carousel-item c-item">
+                            <img src="Images/138ab6202043091.6688ff93b9038.jpg" class="d-block w-100 c-img" alt="Image 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Précédent</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Suivant</span>
+                    </button>
+                </div>
+            </div>
+
+            
+{# Carrousel : End #}
+ {% endif %}
+</header>
+{% endblock %}
+
+

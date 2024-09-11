@@ -1,0 +1,39 @@
+{# templates/products/index.html.twig #}
+{% extends 'base.html.twig' %}
+{% block title %}Products{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Products</h1>
+
+        {# Affichage du formulaire de recherche #}
+        <div class="mb-4">
+            {{ form_start(form) }}
+                {{ form_row(form.category) }}
+                <button type="submit" class="btn btn-primary">Search</button>
+            {{ form_end(form) }}
+        </div>
+
+        {# Affichage des produits #}
+        <div class="row">
+            {% if products is not empty %}
+                {% for product in products %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="{{ '/images/' ~ product.image.name }}" class="card-img-top" alt="{{ product.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text">{{ product.description }}</p>
+                                <p class="card-text"><strong>Price:</strong> {{ product.price | number_format(2, ',', ' ') }} €</p>
+                                <p class="card-text"><strong>Color:</strong> {{ product.color }}</p>
+                                <a href="{{ path('product_show', {id: product.id}) }}" class="btn btn-primary">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No products found for this category.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

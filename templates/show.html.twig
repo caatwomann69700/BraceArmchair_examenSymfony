@@ -1,0 +1,48 @@
+{# templates/product/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">{{ product.name }}</h1> {# Nom du produit aligné à gauche #}
+
+    {# Affichage des images en grille, si des images sont disponibles #}
+    <div class="row">
+        {% if product.imagelists is not empty %}
+            {% for image in product.imagelists %}
+                <div class="col-md-4 mb-3">
+                    <img src="{{ asset(image.name) }}" class="img-fluid same-size-image" alt="{{ product.name }}">
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">Aucune image disponible pour ce produit.</p>
+        {% endif %}
+    </div>
+
+    {# Description du produit et prix #}
+    <div class="row mt-4">
+        <div class="col-12">
+            <p>{{ product.description }}</p> {# Description du produit en dessous des images #}
+            <h2>${{ product.price | number_format(2, ',', ' ') }}</h2> {# Prix du produit formaté #}
+        </div>
+    </div>
+
+    {# Catégorie et bouton d'ajout au panier #}
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <p><strong>Category:</strong> {{ product.category.name }}</p> {# Catégorie du produit #}
+        </div>
+        <div class="col-md-6 text-left">
+            <a href="#" class="btn btn-primary">Add to Cart</a> {# Bouton pour ajouter au panier #}
+        </div>
+    </div>
+
+    {# Bouton retour à la liste des produits #}
+    <div class="row mt-4">
+        <div class="col-md-12 text-left">
+            <a href="{{ path('app_products') }}" class="btn btn-secondary">Back to product list</a> {# Bouton retour à la liste des produits #}
+        </div>
+    </div>
+</div>
+{% endblock %}
