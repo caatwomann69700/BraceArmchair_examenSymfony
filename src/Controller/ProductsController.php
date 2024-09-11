@@ -2,6 +2,7 @@
 // src/Controller/ProductsController.php
 namespace App\Controller;
 
+use App\Entity\Product; // N'oublie pas d'importer l'entité Product
 use App\Form\SearchType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,39 +21,33 @@ class ProductsController extends AbstractController
 
         $products = [];
 
-        // Si le formulaire est soumis et valide, effectuer la recherche
         if ($form->isSubmitted() && $form->isValid()) {
-            $category = $form->get('category')->getData(); // Récupérer la catégorie sélectionnée
+            // Récupérer la catégorie sélectionnée
+            $category = $form->get('category')->getData();
+
             if ($category) {
-                $products = $productRepository->findBy(['category' => $category]); // Rechercher les produits par catégorie
+                // Filtrer les produits par catégorie
+                $products = $productRepository->findBy(['category' => $category]);
             } else {
-                $products = $productRepository->findAll(); // Si aucune catégorie n'est sélectionnée, afficher tous les produits
+                $products = $productRepository->findAll();
             }
         } else {
-            // Si le formulaire n'est pas soumis, récupérer tous les produits
+            // Si le formulaire n'est pas soumis, afficher tous les produits
             $products = $productRepository->findAll();
         }
 
-        // Afficher la vue avec les produits et le formulaire
+        // Rendre la vue avec le formulaire et les produits
         return $this->render('products/index.html.twig', [
             'products' => $products,
-            'form' => $form->createView(), // Passer le formulaire à la vue
+            'form' => $form->createView(),  // Important: Utiliser createView() pour passer le formulaire
         ]);
     }
 
-    #[Route('/product/{id}', name: 'product_show')]
-    public function show(int $id, ProductRepository $productRepository): Response
+    // Route pour afficher un produit individuel
+    #[Route('/product/{id}', name: 'product_show', methods: ['GET'])]
+    public function show(Product $product): Response
     {
-        // Récupérer le produit par son ID
-        $product = $productRepository->find($id);
-
-        // Si le produit n'existe pas, afficher une erreur 404
-        if (!$product) {
-            throw $this->createNotFoundException('The product does not exist');
-        }
-
-        // Rendre la vue avec les détails du produit
-        return $this->render('show.html.twig', [
+        return $this->render('products/show.html.twig', [
             'product' => $product,
         ]);
     }

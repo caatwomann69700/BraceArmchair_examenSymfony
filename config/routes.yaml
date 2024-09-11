@@ -3,3 +3,11 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+splash:
+    path: /splash
+    controller: App\Controller\MainController::splash
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login

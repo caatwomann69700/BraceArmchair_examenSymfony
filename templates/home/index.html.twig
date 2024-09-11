@@ -4,75 +4,106 @@
 
 {% block body %}
 
-    {% block stylesheets %}
-    <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-        </style>
-        {% endblock %}
-
+   {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/splash.css') }}">
+{% endblock %}
 
 {% block main %}
-<!-- Carousel: start -->
-
-
-
-<!-- Carousel: end -->
-
- 
-
  <!-- section image attirante et description pour le client : start -->
  <div class="container custom-container mt-5">
-        <div class="row justify-content-start">
-            <div class="col-md-12">
-                <h3>MODERNS-ARMCHAIR SOFAS</h3>
-                <p>Through a series of surveys and in-depth interviews, design research revealed that modern users prioritize comfort and stability in seating solutions. The Brace Lounge Chair was created to address these needs while providing a unique user experience. Its belt-like accessory secures the soft seat, reducing stress and enhancing stability while incorporating humor. This research-driven approach distinguishes the Brace Lounge Chair from other seating solutions.</p>
-            </div>
+    <div class="row justify-content-start">
+        <div class="col-md-12">
+            <h3>MODERNS-ARMCHAIR SOFAS</h3>
+            <p>Through a series of surveys and in-depth interviews, design research revealed that modern users prioritize comfort and stability in seating solutions. The Brace Lounge Chair was created to address these needs while providing a unique user experience. Its belt-like accessory secures the soft seat, reducing stress and enhancing stability while incorporating humor. This research-driven approach distinguishes the Brace Lounge Chair from other seating solutions.</p>
         </div>
     </div>
- <!-- section image attirante et description pour le client : end -->
-   {% if product %}
-  <div class="container mt-5">
-        <h5 class="mb-4">PLUMP</h5>
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <img src="Images/8a73d1170458263.65105752d051b.gif" alt="Image 1" class="img-fluid">
+</div>
+<!-- section image attirante et description pour le client : end -->
+
+<!-- Boucle pour afficher chaque produit -->
+{% for product in products %}
+    {% if product.name == 'PLUMP' %}
+        <div class="container mt-5">
+            <h5 class="mb-4">{{ product.name }}</h5>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <img src="Images/8a73d1170458263.65105752d051b.gif" alt="Image 1" class="img-fluid">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <img src="Images/957fc9170458263.650ff26315bd8.gif" alt="Image 2" class="img-fluid">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <img src="Images/8a73d1170458263.65105752d051b.gif" alt="Image 3" class="img-fluid">
+                </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <img src="Images/957fc9170458263.650ff26315bd8.gif" alt="Image 2" class="img-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>The Plump Collection combines comfort with playful design. The cushioned seat attaches to a sturdy metal frame using a simple strap. To use, just sit down, wrap the strap around the frame, and secure it with a carabiner. This clever detail adds stability and a touch of fun, turning seating into an interactive experience.</p>
+                </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <img src="Images/8a73d1170458263.65105752d051b.gif" alt="Image 3" class="img-fluid">
+            <div class="row">
+                <div class="col-md-12 text-end">
+                    <a href="{{ path('product_show', { id: product.id }) }}" class="btn btn-outline-secondary" style="background-color: #001f3f; color: white;">View More</a>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    The Plump Collection combines comfort with playful design. The cushioned seat attaches to a sturdy metal frame using a simple strap.
-                     To use, just sit down, wrap the strap around the frame, and secure it with a carabiner.
-                     This clever detail adds stability and a touch of fun, turning seating into an interactive experience.
-                     le as the comfort that follows.
-                 </p>
+    {% elseif product.name == 'PICO' %}
+        <!-- Section PICO -->
+        <div class="container mt-5">
+            <h5 class="mb-4">{{ product.name }}</h5>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <img src="{{ asset('images/9bca19151775017.6311d079efaca.jpg') }}" class="img-fluid rounded" alt="PICO Image 1">
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ asset('images/7e6865151775017.6311d079ef274.jpg') }}" class="img-fluid rounded" alt="PICO Image 2">
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ asset('images/7912bf151775017.6311d079f0293.jpg') }}" class="img-fluid rounded" alt="PICO Image 3">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p>The PICO Collection offers a unique blend of modern aesthetics and exceptional comfort. Whether you're looking to enhance your home or office, PICO pieces add a touch of sophistication to any space.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-end">
+                    <a href="{{ path('product_show', { id: product.id }) }}" class="btn btn-outline-secondary" style="background-color: #001f3f; color: white;">View More</a>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 text-end">
-                <a href="{{ path('product_show', { id: product.id }) }}" class="btn btn-outline-secondary">View More</a>
+    {% elseif product.name == 'PUTO POUF' %}
+        <!-- Section PUTO POUF -->
+        <div class="container mt-5">
+            <h5 class="mb-4">{{ product.name }}</h5>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <img src="{{ asset('images/9563a2164084495.63f0b2288e3bc.jpg') }}" class="img-fluid rounded" alt="PUTO POUF Image">
+                </div>
             </div>
-        </div> 
-        
-    {% else %}
-        <p>Product not found.</p>
-    {% endif %} 
-       <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <img src="Images/f8334f170458263.64cf9848d8a8d.jpg" alt="Description de l'image" class="img-fluid">
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p>The PUTO POUF Collection brings a playful and comfortable touch to any room. Its unique design is not only stylish but also versatile, making it perfect for relaxation in various spaces.</p>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-12 text-end">
+                    <a href="{{ path('product_show', { id: product.id }) }}" class="btn btn-outline-secondary" style="background-color: #001f3f; color: white;">View More</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% else %}
+    <p>Product not found.</p>
+{% endfor %}
 
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% block javascripts %}
+    <script src="{{ asset('js/splash.js') }}"></script>
+{% endblock %}
 
-   
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 {% endblock %}
 {% endblock %}

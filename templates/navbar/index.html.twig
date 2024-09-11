@@ -4,41 +4,124 @@
 
 
 {% block header %}
+
 {# Navbar : Start #}
-  <div class="header-container">
-    <!-- Ajout de la classe fixed-top pour rendre la navbar fixe en haut de la page -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-background fixed-top">
-        <div class="container">
-            <!-- <img src="Images/454715.png" alt="Logo" class="mr-2" style="width: 60px;"> -->
-            
-            <a class="navbar-brand style="font-family: 'Nanum Myeongjo';" href="{{ path('app_home') }}"> BRACE ARMCHAIR</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% if route == 'home' %}active{% endif %}" href="{{ path('app_home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if route == 'products' %}active{% endif %}" href="{{ path('app_products') }}">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if route == 'About' %}active{% endif %}" href="{{ path('app_about') }}">About</a>
-                    </li>
-                    {#<li class="nav-item">
-                        <a class="nav-link {% if route == 'About' %}active{% endif %}" href="{{ path('app_newsletter') }}">Newsletter</a>
-                    </li> #}
-                </ul>
+<div class="header-container">
+  
+    {# Pre-Navbar: Start #}
+    <div class="pre-navbar" style="background-color: #001f3f; color: white; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid #ddd;">
+        <div class="container d-flex justify-content-between align-items-center" style="height: 40px;">
+            <div id="typewriter-text" style="color: white; margin-top: -5px;"></div> {# Texte animé en blanc #}
+            <div>
+                <a href="https://facebook.com" class="text-white mx-2" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com" class="text-white mx-2" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://linkedin.com" class="text-white mx-2" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://instagram.com" class="text-white mx-2" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
-    </nav>
+    </div>
+    {# Pre-Navbar: End #}
+
+    {# Navbar principale : Start #}
+<nav class="navbar navbar-expand-lg navbar-dark navbar-background fixed-top" style="top: 40px;">
+    <div class="container">
+        {# Logo du site ajouté dans la navbar #}
+        <a class="navbar-brand d-flex align-items-center" href="{{ path('app_home') }}">
+            {# <img src="{{ asset('images/logo.webp') }}" alt="Brace Armchair Logo" class="img-fluid" style="height: 40px; margin-right: 10px;"> #}
+            <span style="font-family: 'Nanum Myeongjo';">BRACE ARMCHAIR</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if route == 'home' %}active{% endif %}" href="{{ path('app_home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if route == 'products' %}active{% endif %}" href="{{ path('app_products') }}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if route == 'About' %}active{% endif %}" href="{{ path('app_about') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if route == 'Newsletter' %}active{% endif %}" href="{{ path('newsletter_subscribe') }}">Newsletter</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link {% if route == 'app_register' %}active{% endif %}" href="{{ path('app_register') }}">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if route == 'app_login' %}active{% endif %}" href="{{ path('app_login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    {# Icône du panier avec le nombre d'articles #}
+                    <a class="nav-link" href="{{ path('cart_index') }}">
+                        <i class="fas fa-shopping-cart"></i>
+                        {# Affichage dynamique du nombre d'articles dans le panier #}
+                        {# <span class="badge bg-danger">{{ cart|length }}</span> #}
+                    </a>
+                </li>
+                
+</ul>
+
+            
+        </div>
+    </div>
+</nav>
+{# Navbar principale : End #}
+
+</div>
+
+{# JavaScript pour effet de texte avec écriture et changement #}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const texts = [
+    "Welcome to BRACE ARMCHAIR.",
+    "Explore our new PLUMP collection: A blend of softness and modern design, perfect for any living space.",
+    "Sign up today and enjoy 10% off your first purchase as a valued member!"
+];
+        let textIndex = 0;  // Index de la phrase actuelle
+        let charIndex = 0;  // Index du caractère actuel
+        const typingSpeed = 100;  // Vitesse d'écriture (en ms)
+        const displayDuration = 2000;  // Durée d'affichage avant de changer de phrase
+        const typewriterElement = document.getElementById("typewriter-text");
+
+        function typeWriter() {
+            if (charIndex < texts[textIndex].length) {
+                // Ajoute le caractère suivant
+                typewriterElement.innerHTML += texts[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, typingSpeed);  // Continue l'écriture
+            } else {
+                // Une fois la phrase complètement écrite, attend un moment puis efface
+                setTimeout(() => {
+                    eraseText();  // Effacer le texte après l'écriture
+                }, displayDuration);
+            }
+        }
+
+        function eraseText() {
+            if (charIndex > 0) {
+                // Efface les caractères un à un
+                typewriterElement.innerHTML = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(eraseText, typingSpeed / 2);  // Accélère l'effacement
+            } else {
+                // Passe à la phrase suivante
+                textIndex = (textIndex + 1) % texts.length;  // Répète les phrases en boucle
+                setTimeout(typeWriter, typingSpeed);
+            }
+        }
+
+        // Démarre l'écriture
+        typeWriter();
+    });
+</script>
 
 
-{# Navbar : End #}
- <!-- Affichage conditionnel du carrousel -->
-        {% if route == 'app_home' %}
-            {# Carrousel : Start #}
+ {# <!-- Affichage conditionnel du carrousel -->
+        {% if route == 'app_home' %} #}
+            {# Carrousel : Start
             <div class="carousel">
                 <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
@@ -66,11 +149,17 @@
                         <span class="visually-hidden">Suivant</span>
                     </button>
                 </div>
-            </div>
+            </div> #}
+{# Affichage conditionnel de l'image statique sur la page d'accueil #}
+{# Affichage conditionnel de l'image en pleine largeur sur la page d'accueil #}
+ {% if route == 'app_home' %}
+    <div class="container-fluid p-0"> {# container-fluid pour une largeur complète et p-0 pour supprimer les marges internes #}
+       <img src="Images/783908165327755(1).6405e0f1ae940.gif" class="img-fluid w-100" alt="Image 1" style="object-fit: cover; height: 100vh;">
+    </div>
+{% endif %} 
 
             
-{# Carrousel : End #}
- {% endif %}
+
 </header>
 {% endblock %}
 

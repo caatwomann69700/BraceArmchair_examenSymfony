@@ -1,0 +1,66 @@
+{# templates/product/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+<style> 
+/* Ajustement personnalisé des images si besoin */
+.img-fluid {
+    object-fit: cover; /* Maintenir les proportions */
+    height: 250px;     /* Fixer une hauteur uniforme */
+}
+</style>
+<div class="container mt-5">
+    <h1 class="mb-4">{{ product.name }}</h1> {# Nom du produit aligné à gauche #}
+
+    {# Structure principale : première image à gauche et autres images à droite #}
+    <div class="row">
+        {% if product.imagelists is not empty %}
+            {# Affichage de la première image comme image principale à gauche (largeur 6 colonnes) #}
+            <div class="col-md-6 mb-4">
+                <img src="{{ asset(product.imagelists[0].name) }}" class="img-fluid rounded" alt="{{ product.name }} Image principale">
+            </div>
+
+            {# Affichage des autres images à droite (grille de 6 colonnes avec 2 images par ligne) #}
+            <div class="col-md-6">
+                <div class="row g-3">
+                    {% for image in product.imagelists|slice(1, product.imagelists|length) %}
+                        <div class="col-6"> {# Deux images par ligne (6 colonnes chacune) #}
+                            <img src="{{ asset(image.name) }}" class="img-fluid rounded" alt="{{ product.name }} Image secondaire">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <p class="text-center">Aucune image disponible pour ce produit.</p>
+        {% endif %}
+    </div>
+
+    {# Description du produit et prix #}
+    <div class="row mt-4">
+        <div class="col-12">
+            <p>{{ product.description }}</p> {# Description du produit en dessous des images #}
+            <h2>${{ product.price | number_format(2, ',', ' ') }}</h2> {# Prix du produit formaté #}
+        </div>
+    </div>
+
+    {# Catégorie et bouton d'ajout au panier #}
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <p><strong>Catégorie :</strong> {{ product.category.name }}</p> {# Catégorie du produit #}
+        </div>
+        <div class="col-md-6 text-end"> {# Bouton d'ajout au panier aligné à droite #}
+            <a href="{{ path('cart_add', {id: product.id}) }}" class="btn btn-primary">Add to Cart</a>
+
+        </div>
+    </div>
+
+    {# Bouton retour à la liste des produits #}
+    <div class="row mt-4">
+        <div class="col-md-12 text-start"> {# Alignement à gauche du bouton retour #}
+            <a href="{{ path('app_products') }}" class="btn btn-secondary">Retour à la liste des produits</a> {# Bouton retour à la liste des produits #}
+        </div>
+    </div>
+</div>
+{% endblock %}

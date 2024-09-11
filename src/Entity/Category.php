@@ -75,4 +75,10 @@ class Category
 
         return $this;
     }
+
+    // Méthode __toString() pour permettre la conversion en string
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

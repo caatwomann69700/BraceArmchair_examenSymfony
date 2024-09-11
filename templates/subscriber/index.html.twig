@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Newsletter Subscription{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center mb-4">Subscribe to our Newsletter</h1>
+            
+            {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                <div class="form-group mb-3">
+                    {{ form_label(form.email, 'Your email address', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Enter your email'}}) }}
+                    {{ form_errors(form.email) }}
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="background-color: #001f3f; color: white;">
+                    Subscribe
+                </button>
+
+            {{ form_end(form) }}
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success mt-3 text-center">{{ message }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

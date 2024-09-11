@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ImageRepository;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
@@ -45,5 +46,11 @@ class Image
         $this->product = $product;
 
         return $this;
+    }
+
+    // Méthode __toString() pour afficher l'objet Image sous forme de chaîne
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
