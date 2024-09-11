@@ -33,7 +33,7 @@ class UserFixtures extends Fixture
         $admin->setPassword($hashedPassword);
         $manager->persist($admin);
 
-        // Création d'un utilisateur standard
+        // Création d'un utilisateur client
         $user = new User();
         $user->setEmail('user@example.com');
         $user->setFirstName('UserFirstName');
